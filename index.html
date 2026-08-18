@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>회사종합보험 직원변경 신청 v6</title>
+<title>회사종합보험 직원변경 신청 v7</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <style>
@@ -92,9 +92,32 @@ label{display:block;font-weight:800;margin-bottom:6px} input,select{width:100%;h
   .preview-shell>#preview{height:auto;min-height:0}
 }
 
+
+/* v7: input text must stay inside its original printed cell. */
+.field{
+  overflow:hidden;
+  text-overflow:clip;
+  padding:0 .35cqw;
+}
+.field[data-field="apartment"],
+.field[data-field="position"],
+.field[data-field="name"],
+.field[data-field="birth"],
+.field[data-field="changeDate"],
+.field[data-field="fee"],
+.field[data-field="signedDate"],
+.field[data-field="applicant"],
+.field[data-field="phone"],
+.field[data-field="address"]{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-width:0;
+}
+
 </style>
 </head>
-<body data-app-version="v6">
+<body data-app-version="v7">
 <header><div class="wrap"><h1>회사종합보험 직원변경 신청</h1><p>입사 직원은 위탁사별 취업규칙동의서를 확인하고 전자서명할 수 있습니다.</p></div></header>
 <main>
 <section class="panel">
@@ -127,7 +150,7 @@ label{display:block;font-weight:800;margin-bottom:6px} input,select{width:100%;h
 </section>
 </main>
 <div class="toast" id="toast"></div>
-<div class="version-badge" id="versionBadge">v6</div>
+<div class="version-badge" id="versionBadge">v7</div>
 <script>
 const COMPANIES=[{"name": "현대하우징", "slug": "hyundai", "layout": "stdB", "template": "templates/hyundai.html"}, {"name": "(주)진흥관리", "slug": "jinheung", "layout": "jinheung", "template": "templates/jinheung.html"}, {"name": "대원에스테이트", "slug": "daewon", "layout": "stdB", "template": "templates/daewon.html"}, {"name": "대한산업개발", "slug": "daehan_industry", "layout": "industry", "template": "templates/daehan_industry.html"}, {"name": "대한종합개발", "slug": "daehan_total", "layout": "daehanTotal", "template": "templates/daehan_total.html"}, {"name": "더존환경(주)", "slug": "thezone", "layout": "industry", "template": "templates/thezone.html"}, {"name": "모두관리", "slug": "modu", "layout": "stdC", "template": "templates/modu.html"}, {"name": "미래티엠에스", "slug": "mirae_tms", "layout": "stdB", "template": "templates/mirae_tms.html"}, {"name": "서림주택관리", "slug": "seorim_housing", "layout": "stdC", "template": "templates/seorim_housing.html"}, {"name": "서림폴리텍", "slug": "seorim_polytech", "layout": "stdC", "template": "templates/seorim_polytech.html"}, {"name": "서일개발", "slug": "seoil", "layout": "stdC", "template": "templates/seoil.html"}, {"name": "신성티엠", "slug": "shinsung_tm", "layout": "stdB", "template": "templates/shinsung_tm.html"}, {"name": "신한영관리", "slug": "shinhan_young", "layout": "stdC", "template": "templates/shinhan_young.html"}, {"name": "쌍용개발", "slug": "ssangyong", "layout": "stdC", "template": "templates/ssangyong.html"}, {"name": "씨에스케이", "slug": "csk", "layout": "stdB", "template": "templates/csk.html"}, {"name": "에이비엠", "slug": "abm", "layout": "stdC", "template": "templates/abm.html"}, {"name": "위한씨엠", "slug": "wihan_cm", "layout": "wihan", "template": "templates/wihan_cm.html"}, {"name": "율산개발", "slug": "yulsan", "layout": "stdB", "template": "templates/yulsan.html"}, {"name": "태룡에스디", "slug": "taeryong_sd", "layout": "stdC", "template": "templates/taeryong_sd.html"}, {"name": "한영파트너스에프에이치", "slug": "hanyoung_fh", "layout": "stdC", "template": "templates/hanyoung_fh.html"}];
 const $=id=>document.getElementById(id);
@@ -151,7 +174,7 @@ async function loadTemplate(){
   }
 
   const templateUrl=new URL(c.template, document.baseURI);
-  templateUrl.searchParams.set('v','6');
+  templateUrl.searchParams.set('v','7');
 
   preview.innerHTML='<div style="padding:80px 20px;text-align:center;color:#64748b">양식을 불러오는 중입니다...</div>';
   $('previewStatus').textContent=c.name+' 양식 불러오는 중';
@@ -167,15 +190,17 @@ async function loadTemplate(){
     const bg=preview.querySelector('.template-bg');
     if(bg){
       const raw=bg.getAttribute('src');
-      if(raw) bg.src=new URL(raw, document.baseURI).href+'?v=6';
+      if(raw) bg.src=new URL(raw, document.baseURI).href+'?v=7';
       bg.addEventListener('error',()=>{
         console.error('Background image load failed:', bg.src);
-        $('previewStatus').textContent='배경 이미지 로딩 실패 · v6';
+        $('previewStatus').textContent='배경 이미지 로딩 실패 · v7';
       },{once:true});
     }
 
-    $('previewStatus').textContent=c.name+' 양식 · v6';
+    $('previewStatus').textContent=c.name+' 양식 · v7';
+    bindFieldBoxes();
     syncPreview();
+    requestAnimationFrame(fitAllFields);
   }catch(err){
     console.error('Template load failed:', templateUrl.href, err);
     preview.innerHTML=`
@@ -185,10 +210,49 @@ async function loadTemplate(){
         <div style="font-size:12px;color:#64748b;margin-top:10px;word-break:break-all">${templateUrl.pathname}</div>
         <div style="font-size:12px;color:#b42318;margin-top:4px">${String(err.message||err)}</div>
       </div>`;
-    $('previewStatus').textContent='양식 로딩 실패 · v6';
+    $('previewStatus').textContent='양식 로딩 실패 · v7';
   }
 }
-function setField(name,val){const el=document.querySelector(`[data-field="${name}"]`);if(!el)return;if(el.tagName==='IMG'){if(val){el.src=val;el.style.display='block'}else el.style.display='none';}else el.textContent=val||'';}
+
+function bindFieldBoxes(){
+  const page=document.querySelector('.doc-page');
+  if(!page) return;
+  page.querySelectorAll('.field[data-field]').forEach(el=>{
+    const key=el.dataset.field;
+    const mask=page.querySelector(`.mask-${key}`);
+    if(!mask) return;
+    const mw=parseFloat(mask.style.width||'0');
+    const mh=parseFloat(mask.style.height||'0');
+    if(mw) el.style.width=(mw*0.92)+'%';
+    if(mh) el.style.height=(mh*0.82)+'%';
+  });
+}
+function fitText(el){
+  if(!el || el.tagName==='IMG' || !el.textContent) return;
+  el.style.fontSize='';
+  // Start from the CSS font size, then reduce until the entire value fits.
+  let px=parseFloat(getComputedStyle(el).fontSize)||16;
+  const minPx=7;
+  let guard=80;
+  while(guard-- > 0 && el.scrollWidth > el.clientWidth && px>minPx){
+    px-=0.5;
+    el.style.fontSize=px+'px';
+  }
+}
+function fitAllFields(){
+  document.querySelectorAll('.doc-page .field[data-field]').forEach(fitText);
+}
+
+function setField(name,val){
+  const el=document.querySelector(`[data-field="${name}"]`);
+  if(!el)return;
+  if(el.tagName==='IMG'){
+    if(val){el.src=val;el.style.display='block'}else el.style.display='none';
+  }else{
+    el.textContent=val||'';
+    requestAnimationFrame(()=>fitText(el));
+  }
+}
 function syncPreview(){
  const tier=$('tier').value; const fee=tier?Number(tier).toLocaleString('ko-KR')+'원':'';
  setField('apartment',$('apartment').value);setField('position',$('position').value);setField('name',$('name').value);setField('birth',fmtDate($('birth').value));setField('changeDate',fmtDate($('changeDate').value));setField('fee',fee);setField('phone',$('phone').value);setField('address',$('address').value);setField('signedDate',fmtDate(new Date().toISOString().slice(0,10)));setField('applicant',$('name').value);
@@ -219,7 +283,7 @@ async function initApp(){
   syncPreview();
 
   console.info('[employee-change-form] loaded', {
-    version:'v6',
+    version:'v7',
     baseURI:document.baseURI,
     company:company.value,
     template:getCompany()?.template

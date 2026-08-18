@@ -62,19 +62,19 @@
       477.9189147949219,
       627.7884521484375
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       475.9189147949219,
       591.7572021484375,
       525.6661987304688,
       618.7884521484375
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "modu",
@@ -139,19 +139,19 @@
       472.64154052734375,
       636.5023803710938
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       470.64154052734375,
       599.5118408203125,
       526.6295471191406,
       627.5023803710938
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "mirae_tms",
@@ -216,19 +216,19 @@
       474.0808410644531,
       637.8209228515625
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       472.0808410644531,
       600.8303833007812,
       528.06884765625,
       628.8209228515625
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "seorim_housing",
@@ -293,19 +293,19 @@
       472.64154052734375,
       636.5023803710938
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       470.64154052734375,
       599.5118408203125,
       526.6295471191406,
       627.5023803710938
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "seorim_polytech",
@@ -370,19 +370,19 @@
       472.64154052734375,
       636.5023803710938
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       470.64154052734375,
       599.5118408203125,
       526.6295471191406,
       627.5023803710938
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "seoil",
@@ -447,19 +447,19 @@
       472.64154052734375,
       636.5023803710938
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       470.64154052734375,
       599.5118408203125,
       526.6295471191406,
       627.5023803710938
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "shinsung_tm",
@@ -524,19 +524,19 @@
       474.0808410644531,
       637.8209228515625
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       472.0808410644531,
       600.8303833007812,
       528.06884765625,
       628.8209228515625
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "shinhan_young",
@@ -601,19 +601,19 @@
       472.64154052734375,
       636.5023803710938
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       470.64154052734375,
       599.5118408203125,
       526.6295471191406,
       627.5023803710938
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "ssangyong",
@@ -678,19 +678,19 @@
       472.64154052734375,
       636.5023803710938
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       470.64154052734375,
       599.5118408203125,
       526.6295471191406,
       627.5023803710938
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "csk",
@@ -755,19 +755,19 @@
       474.0808410644531,
       637.8209228515625
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       472.0808410644531,
       600.8303833007812,
       528.06884765625,
       628.8209228515625
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "abm",
@@ -832,19 +832,19 @@
       472.64154052734375,
       636.5023803710938
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       470.64154052734375,
       599.5118408203125,
       526.6295471191406,
       627.5023803710938
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "wihan_cm",
@@ -909,19 +909,19 @@
       413.0,
       644.0
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 2,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       417.0,
       602.0,
       457.0,
       644.0
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "yulsan",
@@ -986,19 +986,19 @@
       474.0808410644531,
       637.8214111328125
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       472.0808410644531,
       600.8308715820312,
       528.06884765625,
       628.8214111328125
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "taeryong_sd",
@@ -1063,19 +1063,19 @@
       472.64154052734375,
       636.5023803710938
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       470.64154052734375,
       599.5118408203125,
       526.6295471191406,
       627.5023803710938
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "hanyoung_fh",
@@ -1140,19 +1140,19 @@
       472.64154052734375,
       636.5023803710938
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       470.64154052734375,
       599.5118408203125,
       526.6295471191406,
       627.5023803710938
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "hyundai",
@@ -1217,19 +1217,19 @@
       474.0808410644531,
       637.8209228515625
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       472.0808410644531,
       600.8303833007812,
       528.06884765625,
       628.8209228515625
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "jinheung",
@@ -1289,19 +1289,19 @@
       507.882568359375,
       651.5286865234375
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       505.882568359375,
       612.5001831054688,
       562.3342895507812,
       642.5286865234375
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "daewon",
@@ -1366,19 +1366,19 @@
       474.0808410644531,
       637.8209228515625
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       472.0808410644531,
       600.8303833007812,
       528.06884765625,
       628.8209228515625
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "daehan_industry",
@@ -1443,19 +1443,19 @@
       477.9189147949219,
       627.7884521484375
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       475.9189147949219,
       591.7572021484375,
       525.6661987304688,
       618.7884521484375
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   },
   {
     "slug": "daehan_total",
@@ -1533,18 +1533,18 @@
       523.83740234375,
       709.2096557617188
     ],
-    "fontSize": 21,
-    "smallFontSize": 21,
-    "feeFontSize": 21,
+    "fontSize": 19,
+    "smallFontSize": 19,
+    "feeFontSize": 19,
     "signatureInset": 4,
-    "signedDateFontSize": 21,
-    "applicantFontSize": 21,
+    "signedDateFontSize": 19,
+    "applicantFontSize": 19,
     "sealBox": [
       516.1969604492188,
       674.2578125,
       573.08349609375,
       700.2096557617188
     ],
-    "sealFontSize": 21
+    "sealFontSize": 19
   }
 ]

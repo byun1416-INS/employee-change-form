@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>회사종합보험 직원변경 신청 v4</title>
+<title>회사종합보험 직원변경 신청 v5</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <style>
@@ -64,9 +64,19 @@ label{display:block;font-weight:800;margin-bottom:6px} input,select{width:100%;h
   .doc-page{width:min(100%,520px)}
 }
 @media(max-width:600px){.grid{grid-template-columns:1fr} h1{font-size:27px} .panel{padding:16px} .action-row{grid-template-columns:1fr}}
+
+.version-badge{
+  position:fixed;right:10px;bottom:10px;z-index:9999;
+  font-size:11px;font-weight:800;letter-spacing:.2px;
+  color:#526174;background:rgba(255,255,255,.92);
+  border:1px solid #d5dde7;border-radius:999px;
+  padding:4px 8px;box-shadow:0 2px 8px rgba(0,0,0,.08);
+  user-select:none
+}
+
 </style>
 </head>
-<body>
+<body data-app-version="v5">
 <header><div class="wrap"><h1>회사종합보험 직원변경 신청</h1><p>입사 직원은 위탁사별 취업규칙동의서를 확인하고 전자서명할 수 있습니다.</p></div></header>
 <main>
 <section class="panel">
@@ -99,6 +109,7 @@ label{display:block;font-weight:800;margin-bottom:6px} input,select{width:100%;h
 </section>
 </main>
 <div class="toast" id="toast"></div>
+<div class="version-badge" id="versionBadge">v5</div>
 <script>
 const COMPANIES=[{"name": "현대하우징", "slug": "hyundai", "layout": "stdB", "template": "templates/hyundai.html"}, {"name": "(주)진흥관리", "slug": "jinheung", "layout": "jinheung", "template": "templates/jinheung.html"}, {"name": "대원에스테이트", "slug": "daewon", "layout": "stdB", "template": "templates/daewon.html"}, {"name": "대한산업개발", "slug": "daehan_industry", "layout": "industry", "template": "templates/daehan_industry.html"}, {"name": "대한종합개발", "slug": "daehan_total", "layout": "daehanTotal", "template": "templates/daehan_total.html"}, {"name": "더존환경(주)", "slug": "thezone", "layout": "industry", "template": "templates/thezone.html"}, {"name": "모두관리", "slug": "modu", "layout": "stdC", "template": "templates/modu.html"}, {"name": "미래티엠에스", "slug": "mirae_tms", "layout": "stdB", "template": "templates/mirae_tms.html"}, {"name": "서림주택관리", "slug": "seorim_housing", "layout": "stdC", "template": "templates/seorim_housing.html"}, {"name": "서림폴리텍", "slug": "seorim_polytech", "layout": "stdC", "template": "templates/seorim_polytech.html"}, {"name": "서일개발", "slug": "seoil", "layout": "stdC", "template": "templates/seoil.html"}, {"name": "신성티엠", "slug": "shinsung_tm", "layout": "stdB", "template": "templates/shinsung_tm.html"}, {"name": "신한영관리", "slug": "shinhan_young", "layout": "stdC", "template": "templates/shinhan_young.html"}, {"name": "쌍용개발", "slug": "ssangyong", "layout": "stdC", "template": "templates/ssangyong.html"}, {"name": "씨에스케이", "slug": "csk", "layout": "stdB", "template": "templates/csk.html"}, {"name": "에이비엠", "slug": "abm", "layout": "stdC", "template": "templates/abm.html"}, {"name": "위한씨엠", "slug": "wihan_cm", "layout": "wihan", "template": "templates/wihan_cm.html"}, {"name": "율산개발", "slug": "yulsan", "layout": "stdB", "template": "templates/yulsan.html"}, {"name": "태룡에스디", "slug": "taeryong_sd", "layout": "stdC", "template": "templates/taeryong_sd.html"}, {"name": "한영파트너스에프에이치", "slug": "hanyoung_fh", "layout": "stdC", "template": "templates/hanyoung_fh.html"}];
 const $=id=>document.getElementById(id);
@@ -112,7 +123,41 @@ $('previewBtn').onclick=syncPreview;
 function fmtDate(v){if(!v)return '';const [y,m,d]=v.split('-');return `${y}년 ${Number(m)}월 ${Number(d)}일`;}
 function fmtCompactDate(v){if(!v)return '';const [y,m,d]=v.split('-');return `${String(y).slice(-2)}년 ${Number(m)}월 ${Number(d)}일`;}
 function getCompany(){return COMPANIES.find(c=>c.slug===company.value)}
-async function loadTemplate(){const c=getCompany();if(!c){$('preview').innerHTML='<div style="padding:80px 20px;text-align:center;color:#64748b">위탁사를 선택하면 해당 회사 양식이 표시됩니다.</div>';$('previewStatus').textContent='위탁사를 선택해 주세요.';return;} const html=await fetch(c.template).then(r=>r.text());$('preview').innerHTML=html;$('previewStatus').textContent=c.name+' 양식';syncPreview();}
+async function loadTemplate(){
+  const c=getCompany();
+  const preview=$('preview');
+  if(!c){
+    preview.innerHTML='<div style="padding:80px 20px;text-align:center;color:#64748b">위탁사를 선택하면 해당 회사 양식이 표시됩니다.</div>';
+    $('previewStatus').textContent='위탁사를 선택해 주세요.';
+    return;
+  }
+
+  const templateUrl=new URL(c.template, document.baseURI);
+  templateUrl.searchParams.set('v','5');
+
+  preview.innerHTML='<div style="padding:80px 20px;text-align:center;color:#64748b">양식을 불러오는 중입니다...</div>';
+  $('previewStatus').textContent=c.name+' 양식 불러오는 중';
+
+  try{
+    const r=await fetch(templateUrl.href,{cache:'no-store'});
+    if(!r.ok) throw new Error(`HTTP ${r.status} ${r.statusText}`);
+    const html=await r.text();
+    if(!html.includes('doc-page')) throw new Error('템플릿 내용이 올바르지 않습니다.');
+    preview.innerHTML=html;
+    $('previewStatus').textContent=c.name+' 양식 · v5';
+    syncPreview();
+  }catch(err){
+    console.error('Template load failed:', templateUrl.href, err);
+    preview.innerHTML=`
+      <div style="padding:48px 22px;text-align:center;color:#475569;line-height:1.7">
+        <div style="font-size:18px;font-weight:800;color:#b42318;margin-bottom:8px">양식 로딩 실패</div>
+        <div>${c.name} 양식을 불러오지 못했습니다.</div>
+        <div style="font-size:12px;color:#64748b;margin-top:10px;word-break:break-all">${templateUrl.pathname}</div>
+        <div style="font-size:12px;color:#b42318;margin-top:4px">${String(err.message||err)}</div>
+      </div>`;
+    $('previewStatus').textContent='양식 로딩 실패 · v5';
+  }
+}
 function setField(name,val){const el=document.querySelector(`[data-field="${name}"]`);if(!el)return;if(el.tagName==='IMG'){if(val){el.src=val;el.style.display='block'}else el.style.display='none';}else el.textContent=val||'';}
 function syncPreview(){
  const tier=$('tier').value; const fee=tier?Number(tier).toLocaleString('ko-KR')+'원':'';
@@ -131,7 +176,25 @@ $('clearSig').onclick=()=>{ctx.clearRect(0,0,canvas.width,canvas.height);signatu
 function validate(){if(!company.value||!$('apartment').value||!$('name').value||!$('changeDate').value) return '필수항목을 입력해 주세요.';const hire=document.querySelector('input[name=changeType]:checked').value==='입사';if(hire&&(!$('position').value||!$('tier').value||!$('birth').value)) return '입사 직원의 직책, 보험료 직급, 생년월일을 입력해 주세요.';if(hire&&!signatureData) return '취업규칙동의서에 서명해 주세요.';return '';}
 $('pdfBtn').onclick=async()=>{const err=validate();if(err){toast(err);return};const page=document.querySelector('.doc-page');if(!page){toast('동의서 미리보기가 없습니다.');return};syncPreview();const c=await html2canvas(page,{scale:2,useCORS:true,backgroundColor:'#fff'});const img=c.toDataURL('image/jpeg',.95);const {jsPDF}=window.jspdf;const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});pdf.addImage(img,'JPEG',0,0,210,297);pdf.save(`${$('name').value||'직원'}_${getCompany()?.name||''}_취업규칙동의서.pdf`);};
 $('submitBtn').onclick=()=>{const err=validate();if(err){toast(err);return};const data={submittedAt:new Date().toISOString(),company:getCompany()?.name,apartment:$('apartment').value,changeType:document.querySelector('input[name=changeType]:checked').value,position:$('position').value,tier:$('tier').value,name:$('name').value,birth:$('birth').value,changeDate:$('changeDate').value,phone:$('phone').value,address:$('address').value,signature:!!signatureData};const arr=JSON.parse(localStorage.getItem('employeeChangeSubmissions')||'[]');arr.push(data);localStorage.setItem('employeeChangeSubmissions',JSON.stringify(arr));toast('테스트 접수가 저장되었습니다.');};
-// defaults
-$('changeDate').value=new Date().toISOString().slice(0,10);toggleChangeType();
+// defaults / initial render
+async function initApp(){
+  $('changeDate').value=new Date().toISOString().slice(0,10);
+
+  // 브라우저가 이전 선택값을 복원하지 않았으면 현대하우징을 기본 선택.
+  if(!company.value) company.value='hyundai';
+
+  toggleSpecialFields();
+  toggleChangeType();
+  await loadTemplate();
+  syncPreview();
+
+  console.info('[employee-change-form] loaded', {
+    version:'v5',
+    baseURI:document.baseURI,
+    company:company.value,
+    template:getCompany()?.template
+  });
+}
+initApp();
 </script>
 </body></html>

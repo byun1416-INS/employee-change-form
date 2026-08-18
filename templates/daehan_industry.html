@@ -1,23 +1,11 @@
-<div class="doc-page" data-company="대한산업개발" data-layout="industry">
-      <img class="template-bg" src="assets/templates/daehan_industry.png" alt="대한산업개발 취업규칙동의서" />
-      <div class="mask mask-apartment" style="left:40.8%;top:17.0%;width:23.0%;height:4.8%;"></div>
-      <div class="mask mask-position" style="left:74.1%;top:17.0%;width:24.5%;height:4.8%;"></div>
-      <div class="mask mask-name" style="left:40.8%;top:23.1%;width:23.0%;height:4.8%;"></div>
-      <div class="mask mask-birth" style="left:74.1%;top:23.1%;width:24.5%;height:4.8%;"></div>
-      <div class="mask mask-changeDate" style="left:61.2%;top:34.1%;width:20.5%;height:7.6%;"></div>
-      <div class="mask mask-fee" style="left:79.1%;top:35.3%;width:16.5%;height:7.5%;"></div>
-      <div class="mask mask-signedDate" style="left:72.3%;top:67.8%;width:22.0%;height:3.8%;"></div>
-      <div class="mask mask-applicant" style="left:65.0%;top:71.5%;width:13.0%;height:3.4%;"></div>
-
-      <div class="field field-apartment" data-field="apartment" style="left:40.8%;top:17.0%;"></div>
-<div class="field field-position" data-field="position" style="left:74.1%;top:17.0%;"></div>
-<div class="field field-name" data-field="name" style="left:40.8%;top:23.1%;"></div>
-<div class="field field-birth" data-field="birth" style="left:74.1%;top:23.1%;"></div>
-<div class="field field-changeDate" data-field="changeDate" style="left:61.2%;top:34.1%;"></div>
-<div class="field field-fee" data-field="fee" style="left:79.1%;top:35.3%;"></div>
-
-
-<div class="field field-signedDate" data-field="signedDate" style="left:72.3%;top:67.8%;"></div>
-<div class="field field-applicant" data-field="applicant" style="left:65.0%;top:71.5%;"></div>
-<img class="signature-overlay" data-field="signature" alt="서명" style="left:82.0%;top:71.5%;" />
-    </div>
+<div class="doc form-payroll" data-company="대한산업개발">
+<h1 class="doc-title">회사종합보험 가입 및 급여 공제 동의서</h1>
+<table class="form-table personal"><colgroup><col class="c-side"><col class="c-label"><col class="c-value"><col class="c-label"><col class="c-value2"></colgroup>
+<tr><td class="side-label" rowspan="2">인<br>적<br>사<br>항</td><td class="label-cell">단지명</td><td class="value-cell">{{apartment}}</td><td class="label-cell">직책</td><td class="value-cell">{{position}}</td></tr>
+<tr><td class="label-cell">성명</td><td class="value-cell">{{name}}</td><td class="label-cell">생년월일</td><td class="value-cell">{{birth}}</td></tr></table>
+<table class="form-table consent"><colgroup><col class="c-side"><col class="c-label"><col class="c-content"><col class="c-period"><col class="c-fee"></colgroup>
+<tr><td class="side-label" rowspan="2">동<br>의<br>사<br>항</td><th colspan="2">내용</th><th>기간</th><th>보험료(단위:원)</th></tr>
+<tr><td class="label-cell"></td><td class="content-cell">관리 사고나 금전사고로 인한 손해를 보장하기 위한 보험가입과 보험료 납부 및 급여공제에 대한 동의</td><td class="period-cell">입사일<br><b>{{changeDate}}</b><br>로부터<br>~ 퇴사일 까지</td><td class="fee-cell">{{fee}}</td></tr></table>
+<div class="body-box"><div class="body-text">본인은 상기의 내용으로 ‘취업규칙 제10조(전형 및 채용 서류)’에 의거하여 관리 사고나 금전사고로 인한 손해를 보장하기 위한 회사종합보험 가입에 동의하며 보험가입에 따른 본인 부담분 보험료는 매월 급여에서 공제하여 납부하는 것에 동의합니다. 또한 동의한 이후에는 보험가입과 보험료 징구에 대하여 어떠한 경우에도 이의를 제기하지 않을 것을 확약합니다.</div><div class="privacy">※ 위 사항에 대한 개인정보 수집 및 이용에 동의합니다.</div>
+<div class="sign-area"><div></div><div class="sign-meta"><div>{{signedDate}}</div><div class="sign-line"><span>신청인&nbsp;&nbsp; 성명</span><b>{{name}}</b><img class="signature-img" data-signature><span>(인)</span></div><div class="hand-note">※ 자필 서명 가능함.</div></div></div>
+<div class="company-line">대한산업개발주식회사 귀중</div><div class="footnotes">1) 기간 : 기간 미기재의 경우 1년간 동의한 것으로 간주하며, 필요시 1년 이내의 기간 기재 가능<br>2) 월 보험료 : 관리소장 (12,000원)/ 과장(실장,팀장등 책임자),경리,선임(전기),서무(회계)등 중간관리자(9,000원) 기술직원,서무(행정),시설관리(4,000원)/ 경비, 미화원제외</div></div></div>

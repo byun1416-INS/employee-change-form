@@ -1,25 +1,15 @@
-<div class="doc-page" data-company="대한종합개발" data-layout="daehanTotal">
-      <img class="template-bg" src="assets/templates/daehan_total.png" alt="대한종합개발 취업규칙동의서" />
-      <div class="mask mask-apartment" style="left:36.0%;top:14.0%;width:32.0%;height:3.8%;"></div>
-      <div class="mask mask-name" style="left:78.8%;top:14.0%;width:25.5%;height:3.8%;"></div>
-      <div class="mask mask-changeDate" style="left:36.0%;top:17.5%;width:32.0%;height:3.8%;"></div>
-      <div class="mask mask-birth" style="left:78.8%;top:17.5%;width:25.5%;height:3.8%;"></div>
-      <div class="mask mask-phone" style="left:36.0%;top:21.0%;width:32.0%;height:3.8%;"></div>
-      <div class="mask mask-position" style="left:78.8%;top:21.0%;width:25.5%;height:3.8%;"></div>
-      <div class="mask mask-address" style="left:52.0%;top:24.6%;width:66.5%;height:3.8%;"></div>
-      <div class="mask mask-fee" style="left:57.0%;top:47.6%;width:54.0%;height:5.0%;"></div>
-      <div class="mask mask-signedDate" style="left:55.0%;top:77.0%;width:28.0%;height:3.8%;"></div>
-      <div class="mask mask-applicant" style="left:70.0%;top:81.3%;width:17.0%;height:3.5%;"></div>
-
-      <div class="field field-apartment" data-field="apartment" style="left:36.0%;top:14.0%;"></div>
-<div class="field field-position" data-field="position" style="left:78.8%;top:21.0%;"></div>
-<div class="field field-name" data-field="name" style="left:78.8%;top:14.0%;"></div>
-<div class="field field-birth" data-field="birth" style="left:78.8%;top:17.5%;"></div>
-<div class="field field-changeDate" data-field="changeDate" style="left:36.0%;top:17.5%;"></div>
-<div class="field field-fee" data-field="fee" style="left:57.0%;top:47.6%;"></div>
-<div class="field field-phone" data-field="phone" style="left:36.0%;top:21.0%;"></div>
-<div class="field field-address" data-field="address" style="left:52.0%;top:24.6%;"></div>
-<div class="field field-signedDate" data-field="signedDate" style="left:55.0%;top:77.0%;"></div>
-<div class="field field-applicant" data-field="applicant" style="left:70.0%;top:81.3%;"></div>
-<img class="signature-overlay" data-field="signature" alt="서명" style="left:86.0%;top:81.0%;" />
-    </div>
+<div class="doc form-daehan-total" data-company="대한종합개발">
+<h1 class="doc-title no-underline">회사종합보험 가입 동의서</h1>
+<table class="special-table personal-special">
+<tr><th>근무 사업장 명</th><td>{{apartment}}</td><th>성&nbsp;&nbsp;&nbsp;명</th><td>{{name}}</td></tr>
+<tr><th>입&nbsp;&nbsp;사&nbsp;&nbsp;일</th><td>{{changeDate}}</td><th>생년월일</th><td>{{birth}}</td></tr>
+<tr><th>전&nbsp;화&nbsp;번&nbsp;호</th><td>{{phone}}</td><th>직&nbsp;&nbsp;&nbsp;책</th><td>{{position}}</td></tr>
+<tr><th>주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</th><td colspan="3">{{address}}</td></tr></table>
+<table class="special-table agreement-special">
+<tr><td class="side-label" rowspan="4">동<br><br>의<br><br>사<br><br>항</td><th>내&nbsp;&nbsp;&nbsp;용</th><td>관리사고 및 금전사고로 인한 손해를 보장하기 위한 (금융종합보험과 배상책임보험)보험가입과 보험료 징구에 대한 동의</td></tr>
+<tr><th>기&nbsp;&nbsp;&nbsp;간</th><td class="left">개시(입사)일로 부터 ~ 종료일 까지<br><br>- 개시(입사)일 : <b>{{changeDate}}</b><br>- 종 료 일 : 퇴 사 일<br><br>※ 기간을 정하여 가입하려는 경우 개시(입사)일 등을 명확히 기재해야 하며, 기간 미 기재 시에는 입사일로 부터 퇴사일 까지 동의 한 것으로 한다.</td></tr>
+<tr><th>금&nbsp;&nbsp;&nbsp;액</th><td class="left">월 보험료 : <b>{{fee}}</b></td></tr>
+<tr><th>보증보험</th><td class="left">배상 한도 : 단지당 10억 (대인 5억원, 대물 5억원)<br><br>- 직책 및 업무 구분별 납부 금액<br> * 관리사무소장 : 12,000원/월<br> * (기전/관리)과장 : 9,000원/월<br> * 경리 / 사무 : 9,000원/월<br> * 사무보조원 / 관리원 : 4,000원/월<br> * 기술인력 : 4,000원/월</td></tr></table>
+<div class="body-box"><div class="body-text">상기 본인은 취업규칙 제7조7항가(입사자 제출서류)에서 말하는 보험가입에 따른 본인부담 분 보험료에 대하여 매월 급여에서 차감하여 납부하는 것을 동의합니다. 또한 보험가입과 보험료 징구에 대하여 어떠한 경우에도 이의를 제기하지 않을 것을 확약합니다.</div>
+<div class="sign-area"><div></div><div class="sign-meta"><div>{{signedDate}}</div><div class="sign-line"><span>신청인 성명 :</span><b>{{name}}</b><img class="signature-img" data-signature><span>(서명 또는 날인)</span></div></div></div>
+<div class="company-line">대한종합개발 주식회사 귀중</div></div></div>

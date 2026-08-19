@@ -75,7 +75,9 @@
       618.7884521484375
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/thezone.svg",
+    "signatureScale": 4
   },
   {
     "slug": "modu",
@@ -153,7 +155,9 @@
       627.5023803710938
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/modu.svg",
+    "signatureScale": 2
   },
   {
     "slug": "mirae_tms",
@@ -231,7 +235,9 @@
       628.8209228515625
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/mirae_tms.svg",
+    "signatureScale": 2
   },
   {
     "slug": "seorim_housing",
@@ -309,7 +315,9 @@
       627.5023803710938
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/seorim_housing.svg",
+    "signatureScale": 2
   },
   {
     "slug": "seorim_polytech",
@@ -387,7 +395,9 @@
       627.5023803710938
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/seorim_polytech.svg",
+    "signatureScale": 2
   },
   {
     "slug": "seoil",
@@ -465,7 +475,9 @@
       627.5023803710938
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/seoil.svg",
+    "signatureScale": 2
   },
   {
     "slug": "shinsung_tm",
@@ -543,7 +555,9 @@
       628.8209228515625
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/shinsung_tm.svg",
+    "signatureScale": 2
   },
   {
     "slug": "shinhan_young",
@@ -621,7 +635,9 @@
       627.5023803710938
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/shinhan_young.svg",
+    "signatureScale": 2
   },
   {
     "slug": "ssangyong",
@@ -699,7 +715,9 @@
       627.5023803710938
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/ssangyong.svg",
+    "signatureScale": 2
   },
   {
     "slug": "csk",
@@ -777,7 +795,9 @@
       628.8209228515625
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/csk.svg",
+    "signatureScale": 2
   },
   {
     "slug": "abm",
@@ -855,7 +875,9 @@
       627.5023803710938
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/abm.svg",
+    "signatureScale": 2
   },
   {
     "slug": "wihan_cm",
@@ -933,7 +955,9 @@
       644.0
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/wihan_cm.svg",
+    "signatureScale": 2
   },
   {
     "slug": "yulsan",
@@ -1011,7 +1035,9 @@
       628.8214111328125
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/yulsan.svg",
+    "signatureScale": 2
   },
   {
     "slug": "taeryong_sd",
@@ -1089,7 +1115,9 @@
       627.5023803710938
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/taeryong_sd.svg",
+    "signatureScale": 2
   },
   {
     "slug": "hanyoung_fh",
@@ -1167,7 +1195,9 @@
       627.5023803710938
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/hanyoung_fh.svg",
+    "signatureScale": 2
   },
   {
     "slug": "hyundai",
@@ -1245,7 +1275,9 @@
       628.8209228515625
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/hyundai.svg",
+    "signatureScale": 2
   },
   {
     "slug": "jinheung",
@@ -1291,7 +1323,7 @@
       558.6,
       362.1
     ],
-    "periodMode": "jinheung_inline",
+    "periodMode": "jinheung_clean_inline",
     "signedDateBox": [
       419.531005859375,
       597.0026245117188,
@@ -1323,7 +1355,9 @@
       642.5286865234375
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/jinheung.svg",
+    "signatureScale": 2
   },
   {
     "slug": "daewon",
@@ -1401,7 +1435,9 @@
       628.8209228515625
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/daewon.svg",
+    "signatureScale": 2
   },
   {
     "slug": "daehan_industry",
@@ -1479,7 +1515,9 @@
       618.7884521484375
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/daehan_industry.svg",
+    "signatureScale": 4
   },
   {
     "slug": "daehan_total",
@@ -1531,14 +1569,19 @@
         216.76
       ]
     },
-    "periodBox": null,
+    "periodBox": [
+      224.0,
+      297.0,
+      356.0,
+      319.0
+    ],
     "feeBox": [
       136.77,
       387.14,
       545.3,
       411.3
     ],
-    "periodMode": "none",
+    "periodMode": "daehan_total_date",
     "signedDateBox": null,
     "applicantBox": [
       379.83740234375,
@@ -1565,6 +1608,8 @@
       700.2096557617188
     ],
     "sealFontSize": 9,
-    "sealShiftInward": 10.0
+    "sealShiftInward": 10.0,
+    "lineRepair": "lines/daehan_total.svg",
+    "signatureScale": 2
   }
 ]

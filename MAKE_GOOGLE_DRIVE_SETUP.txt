@@ -1,0 +1,30 @@
+[v1.12 접수완료 → Google Drive PDF 저장 연결]
+
+1. Make에서 새 시나리오를 만듭니다.
+2. Webhooks > Custom webhook 모듈을 추가합니다.
+3. 생성된 webhook URL을 복사합니다.
+4. 이 압축파일의 upload-config.js를 열어 아래처럼 붙여 넣습니다.
+
+   window.INS_UPLOAD_WEBHOOK_URL = "https://hook....make.com/......";
+
+5. Make에서 웹훅 다음에 Google Drive > Upload a file 을 추가합니다.
+6. 웹훅으로 들어오는 'pdf' 파일을 Google Drive Upload a file의 File에 매핑합니다.
+7. File name에는 'filename'을 매핑합니다.
+8. 저장할 Google Drive 폴더를 선택합니다.
+9. 시나리오를 ON 합니다.
+
+접수완료 시 같이 전송되는 값:
+- pdf : 생성된 취업규칙동의서 PDF 파일
+- filename
+- company / company_slug
+- apartment
+- change_type
+- position
+- tier / fee
+- name / birth
+- change_date
+- phone / address
+- submitted_at
+
+주의:
+GitHub Pages에 올릴 때 index.html, config.json, upload-config.js, svgs/, lines/ 폴더를 모두 올려야 합니다.

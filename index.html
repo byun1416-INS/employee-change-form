@@ -28,7 +28,13 @@ button{border:0;border-radius:9px;padding:11px 15px;font-size:14px;font-weight:8
 .multiline{flex-direction:column;gap:3px;white-space:normal}.wraptext{white-space:normal!important;word-break:break-all!important;overflow-wrap:anywhere!important;line-height:1.08!important;padding:1px 2px}.wraptext .wrap-inner{display:block;width:100%;max-width:100%;white-space:normal;word-break:break-all;overflow-wrap:anywhere;text-align:center;line-height:1.08}
 .signature-overlay{position:absolute;z-index:4;object-fit:contain;object-position:center;pointer-events:none;filter:brightness(0) contrast(250%);opacity:1}.seal-overlay{position:absolute;z-index:99;background:transparent;color:#000;font-family:'Malgun Gothic','Noto Sans KR',sans-serif;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:9px;line-height:1;white-space:nowrap;overflow:visible;pointer-events:none}.seal-overlay .seal-text{display:inline-block;background:transparent;padding:0;line-height:1}
 .version{position:fixed;right:10px;bottom:10px;font-size:11px;font-weight:800;color:#526174;background:#fff;border:1px solid #d5dde7;border-radius:999px;padding:4px 8px}
-.help{font-size:12px;color:#64748b;margin-top:7px}.submit-status{font-size:12px;margin-top:8px;font-weight:700}.submit-status.ok{color:#07833f}.submit-status.err{color:#c62828}
+.help{font-size:12px;color:#64748b;margin-top:7px}
+.exit-only{display:none}
+main.exit-mode{grid-template-columns:minmax(0,620px);justify-content:center}
+main.exit-mode .exit-only{display:block}
+main.exit-mode .actions{grid-template-columns:1fr}
+.exit-notice{margin-top:12px;padding:12px 13px;border-radius:10px;background:#eef7ff;border:1px solid #c8def4;font-size:13px;line-height:1.55;color:#234}
+.submit-status{font-size:12px;margin-top:8px;font-weight:700}.submit-status.ok{color:#07833f}.submit-status.err{color:#c62828}
 @media(max-width:1000px){main{grid-template-columns:1fr}.preview-shell{height:auto;min-height:620px}}@media(max-width:600px){.grid{grid-template-columns:1fr}.panel{padding:14px}.actions{grid-template-columns:1fr}.header-bar{flex-direction:column;align-items:flex-start}.header-right{font-size:20px;text-align:left}}
 </style>
 </head>
@@ -38,7 +44,7 @@ button{border:0;border-radius:9px;padding:11px 15px;font-size:14px;font-weight:8
 <section class="panel"><h2 class="section-title">직원변경 정보</h2><div class="grid">
 <div class="full"><label>소속 위탁사 *</label><select id="company"></select></div>
 <div class="full"><label>단지명 *</label><input id="apartment"></div>
-<div class="full"><label>변경 구분 *</label><div class="radio-row"><label><input type="radio" name="changeType" value="입사" checked>입사</label><label><input type="radio" name="changeType" value="퇴사">퇴사</label></div></div>
+<div class="full"><label>변경 구분 *</label><div class="radio-row"><label><input type="radio" name="changeType" value="입사" checked>입사</label><label><input type="radio" name="changeType" value="퇴사">퇴사</label></div><div id="exitNotice" class="exit-notice exit-only"><b>퇴사 접수는 동의서 작성과 전자서명이 필요하지 않습니다.</b><br>단지명, 성명, 퇴사일만 입력하면 접수됩니다.</div></div>
 <div class="hire"><label>실제 직책 *</label><input id="position"></div>
 <div class="hire"><label>보험료 직급 *</label><select id="tier"><option value="">선택해 주세요</option><option value="12000">관리소장급 (12,000원)</option><option value="9000">회계과장급 (9,000원)</option><option value="4000">기술직급 (4,000원)</option></select></div>
 <div><label>성명 *</label><input id="name"></div><div class="hire"><label>생년월일 *</label><input id="birth" type="date"></div>
@@ -53,7 +59,7 @@ button{border:0;border-radius:9px;padding:11px 15px;font-size:14px;font-weight:8
 <div class="actions"><button class="primary" id="pdfBtn">PDF 다운로드</button><button class="secondary" id="resetBtn">초기화</button></div>
 <button class="submit" id="submitBtn">접수완료</button><div id="submitStatus" class="submit-status"></div><div class="help"><b>접수된 내용은 담당 직원이 확인 후 처리합니다.</b> 문의사항은 대표전화 <b>02-6481-0332</b>로 연락해 주세요.</div>
 </section>
-<section class="panel"><div class="preview-head"><h2>취업규칙동의서 실시간 미리보기</h2><div class="status" id="status"></div></div>
+<section class="panel" id="consentPreviewPanel"><div class="preview-head"><h2>취업규칙동의서 실시간 미리보기</h2><div class="status" id="status"></div></div>
 <div class="preview-shell"><div id="pageViewport"><img id="baseSvg"><img id="lineRepair"></div></div></section>
 </main>
 <script>
@@ -64,6 +70,7 @@ let signatureData='';
 let exportMode=false;
 let currentScale=1;
 function cfg(){return CONFIG.find(c=>c.slug===company.value)||CONFIG[0]}
+function isHire(){return document.querySelector('input[name=changeType]:checked').value==='입사'}
 function uiSize(size){const base=Number(size||13);return exportMode?base:(base/Math.max(currentScale,0.01))}
 function uiMin(size){const base=Number(size||7);return exportMode?base:(base/Math.max(currentScale,0.01))}
 function fmtDate(v){if(!v)return '';const [y,m,d]=v.split('-');return `${y}년 ${Number(m)}월 ${Number(d)}일`}
@@ -91,23 +98,52 @@ function render(updateScale=true){
 }
 
 function resize(shouldRender=true){const shell=document.querySelector('.preview-shell'),c=cfg(),maxW=shell.clientWidth-20,maxH=shell.clientHeight-20,s=Math.min(maxW/c.w,maxH/c.h);currentScale=s||1;viewport.style.width=c.w+'px';viewport.style.height=c.h+'px';viewport.style.transform=`scale(${s})`;if(shouldRender) render(false)}
-function load(){const c=cfg();baseSvg.src=c.svg+'?v=1.12';lineRepair.src=(c.lineRepair||'')+'?v=1.12';viewport.style.width=c.w+'px';viewport.style.height=c.h+'px';$('status').textContent=c.name+' 양식';toggleSpecial();render()}
+function load(){const c=cfg();baseSvg.src=c.svg+'?v=1.20';lineRepair.src=(c.lineRepair||'')+'?v=1.20';viewport.style.width=c.w+'px';viewport.style.height=c.h+'px';$('status').textContent=c.name+' 양식';toggleSpecial();render()}
 window.addEventListener('resize',()=>resize(true));
 ['apartment','position','name','birth','changeDate','tier','phone','address'].forEach(id=>$(id).addEventListener(id==='tier'?'change':'input',render));company.addEventListener('change',load);
-document.querySelectorAll('input[name=changeType]').forEach(r=>r.addEventListener('change',()=>{const hire=document.querySelector('input[name=changeType]:checked').value==='입사';document.querySelectorAll('.hire').forEach(e=>e.classList.toggle('hidden',!hire));render()}));
-function toggleSpecial(){const yes=company.value==='daehan_total';$('phoneWrap').classList.toggle('hidden',!yes);$('addressWrap').classList.toggle('hidden',!yes)}
+function applyChangeMode(){
+ const hire=isHire();
+ document.querySelectorAll('.hire').forEach(e=>e.classList.toggle('hidden',!hire));
+ $('consentPreviewPanel').classList.toggle('hidden',!hire);
+ document.querySelector('main').classList.toggle('exit-mode',!hire);
+ $('pdfBtn').classList.toggle('hidden',!hire);
+ toggleSpecial();
+ if(!hire){
+   ctx.clearRect(0,0,canvas.width,canvas.height);
+   signatureData='';
+   $('submitStatus').textContent='';
+   $('submitStatus').className='submit-status';
+ }else{
+   setTimeout(()=>resize(true),0);
+ }
+ render();
+}
+document.querySelectorAll('input[name=changeType]').forEach(r=>r.addEventListener('change',applyChangeMode));
+function toggleSpecial(){
+ const yes=company.value==='daehan_total' && isHire();
+ $('phoneWrap').classList.toggle('hidden',!yes);
+ $('addressWrap').classList.toggle('hidden',!yes);
+}
 const canvas=$('signature'),ctx=canvas.getContext('2d');ctx.lineWidth=4.0;ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#000000';ctx.globalAlpha=1;let drawing=false,last=null;
 function pt(e){const r=canvas.getBoundingClientRect(),t=e.touches?e.touches[0]:e;return{x:(t.clientX-r.left)*canvas.width/r.width,y:(t.clientY-r.top)*canvas.height/r.height}}
 function start(e){drawing=true;last=pt(e);e.preventDefault()}function move(e){if(!drawing)return;const p=pt(e);ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p;signatureData=canvas.toDataURL('image/png');render();e.preventDefault()}function end(){drawing=false;signatureData=canvas.toDataURL('image/png');render()}
 canvas.addEventListener('mousedown',start);canvas.addEventListener('mousemove',move);window.addEventListener('mouseup',end);canvas.addEventListener('touchstart',start,{passive:false});canvas.addEventListener('touchmove',move,{passive:false});canvas.addEventListener('touchend',end);
 $('clearSig').onclick=()=>{ctx.clearRect(0,0,canvas.width,canvas.height);signatureData='';render()};
-$('resetBtn').onclick=()=>{['apartment','position','name','birth','phone','address'].forEach(id=>$(id).value='');$('tier').value='';$('changeDate').value=new Date().toISOString().slice(0,10);ctx.clearRect(0,0,canvas.width,canvas.height);signatureData='';company.value='hyundai';load()};
+$('resetBtn').onclick=()=>{
+ ['apartment','position','name','birth','phone','address'].forEach(id=>$(id).value='');
+ $('tier').value='';
+ $('changeDate').value=new Date().toISOString().slice(0,10);
+ ctx.clearRect(0,0,canvas.width,canvas.height);signatureData='';
+ document.querySelector('input[name=changeType][value="입사"]').checked=true;
+ applyChangeMode();
+ load();
+};
 
 function validateRequired(){
- const hire=document.querySelector('input[name=changeType]:checked').value==='입사';
+ const hire=isHire();
  const required=[['apartment','단지명'],['name','성명'],['changeDate','직원변경일']];
  if(hire){required.push(['position','실제 직책'],['tier','보험료 직급'],['birth','생년월일'])}
- if(company.value==='daehan_total'){required.push(['phone','전화번호'],['address','주소'])}
+ if(hire&&company.value==='daehan_total'){required.push(['phone','전화번호'],['address','주소'])}
  for(const [id,label] of required){if(!val(id)){alert(label+'을(를) 입력해 주세요.');$(id)?.focus();return false}}
  if(hire&&!signatureData){alert('전자서명을 해 주세요.');return false}
  return true;
@@ -126,6 +162,7 @@ async function buildPdf(){
  }
 }
 $('pdfBtn').onclick=async()=>{
+ if(!isHire())return;
  const {blob,filename}=await buildPdf();
  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;
  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),3000);
@@ -133,37 +170,51 @@ $('pdfBtn').onclick=async()=>{
 $('submitBtn').onclick=async()=>{
  if(!validateRequired())return;
  const btn=$('submitBtn'),status=$('submitStatus');
+ const hire=isHire();
  btn.disabled=true;btn.textContent='접수 처리 중...';status.textContent='';status.className='submit-status';
  try{
-   const {blob,filename}=await buildPdf();
    const webhook=(window.INS_UPLOAD_WEBHOOK_URL||'').trim();
    if(!webhook){
-     status.textContent='관리자 업로드 웹훅 주소가 아직 설정되지 않았습니다.';
+     status.textContent='관리자 접수 웹훅 주소가 아직 설정되지 않았습니다.';
      status.className='submit-status err';
-     alert('PDF 생성은 완료됐지만 Google Drive 업로드용 웹훅 주소가 아직 설정되지 않았습니다.');
+     alert('접수용 Make 웹훅 주소가 아직 설정되지 않았습니다.');
      return;
    }
+
    const form=new FormData();
-   form.append('pdf',blob,filename);
-   form.append('filename',filename);
+
+   if(hire){
+     const {blob,filename}=await buildPdf();
+     form.append('pdf',blob,filename);
+     form.append('filename',filename);
+     form.append('has_pdf','true');
+   }else{
+     form.append('filename','');
+     form.append('has_pdf','false');
+   }
+
    form.append('company',cfg().name);
    form.append('company_slug',company.value);
    form.append('apartment',val('apartment'));
-   form.append('change_type',document.querySelector('input[name=changeType]:checked').value);
-   form.append('position',val('position'));
-   form.append('tier',val('tier'));
-   form.append('fee',fee());
+   form.append('change_type',hire?'입사':'퇴사');
+   form.append('position',hire?val('position'):'');
+   form.append('tier',hire?val('tier'):'');
+   form.append('fee',hire?fee():'');
    form.append('name',val('name'));
-   form.append('birth',val('birth'));
+   form.append('birth',hire?val('birth'):'');
    form.append('change_date',val('changeDate'));
-   form.append('phone',val('phone'));
-   form.append('address',val('address'));
+   form.append('phone',hire?val('phone'):'');
+   form.append('address',hire?val('address'):'');
    form.append('submitted_at',new Date().toISOString());
+
    const res=await fetch(webhook,{method:'POST',body:form});
    if(!res.ok)throw new Error('HTTP '+res.status);
-   status.textContent='접수 완료 · PDF 관리자 전송 완료';
+
+   status.textContent=hire
+     ? '접수 완료 · 동의서 PDF 관리자 전송 완료'
+     : '퇴사 접수 완료 · 담당 직원 확인 후 처리됩니다.';
    status.className='submit-status ok';
-   alert('접수가 완료되었습니다.');
+   alert(hire?'입사 접수가 완료되었습니다.':'퇴사 접수가 완료되었습니다.');
  }catch(err){
    console.error(err);
    status.textContent='접수 실패 · 관리자 전송 중 오류가 발생했습니다.';
@@ -173,6 +224,6 @@ $('submitBtn').onclick=async()=>{
    btn.disabled=false;btn.textContent='접수완료';
  }
 };
-$('changeDate').value=new Date().toISOString().slice(0,10);load();
+$('changeDate').value=new Date().toISOString().slice(0,10);load();applyChangeMode();
 </script>
 </body></html>

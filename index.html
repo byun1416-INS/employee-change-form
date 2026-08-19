@@ -5,7 +5,7 @@
 <title>회사종합보험 직원변경 신청</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-<script src="upload-config.js"></script>
+<script src="secure-config.js"></script>
 <style>
 :root{--navy:#082844;--blue:#1464df;--line:#d9e2ec;--muted:#64748b;--bg:#f4f7fb}
 *{box-sizing:border-box}body{margin:0;font-family:Pretendard,'Noto Sans KR','Malgun Gothic',sans-serif;background:var(--bg);color:#10243e}
@@ -34,15 +34,27 @@ main.exit-mode{grid-template-columns:minmax(0,620px);justify-content:center}
 main.exit-mode .exit-only{display:block}
 main.exit-mode .actions{grid-template-columns:1fr}
 .exit-notice{margin-top:12px;padding:12px 13px;border-radius:10px;background:#eef7ff;border:1px solid #c8def4;font-size:13px;line-height:1.55;color:#234}
+.company-fixed{height:45px;border:1px solid #bdcad8;border-radius:9px;padding:0 12px;
+display:flex;align-items:center;background:#f8fafc;font-weight:800}
+.access-lock{position:fixed;inset:0;background:#f4f7fb;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px}
+.access-card{width:min(520px,100%);background:#fff;border:1px solid #d9e2ec;border-radius:18px;padding:28px;
+box-shadow:0 12px 40px rgba(16,36,62,.12);text-align:center}
+.access-card h2{margin:0 0 10px;font-size:24px}.access-card p{margin:0;color:#64748b;line-height:1.7}
 .submit-status{font-size:12px;margin-top:8px;font-weight:700}.submit-status.ok{color:#07833f}.submit-status.err{color:#c62828}
 @media(max-width:1000px){main{grid-template-columns:1fr}.preview-shell{height:auto;min-height:620px}}@media(max-width:600px){.grid{grid-template-columns:1fr}.panel{padding:14px}.actions{grid-template-columns:1fr}.header-bar{flex-direction:column;align-items:flex-start}.header-right{font-size:20px;text-align:left}}
 </style>
 </head>
 <body>
+<div id="accessLock" class="access-lock">
+  <div class="access-card">
+    <h2 id="accessTitle">접속 권한 확인 중</h2>
+    <p id="accessMessage">위탁사 전용 링크를 확인하고 있습니다.</p>
+  </div>
+</div>
 <header><div class="wrap header-bar"><div class="header-left"><h1>회사종합보험 직원변경 신청</h1></div><div class="header-right">(주)인스송일헌</div></div></header>
 <main>
 <section class="panel"><h2 class="section-title">직원변경 정보</h2><div class="grid">
-<div class="full"><label>소속 위탁사 *</label><select id="company"></select></div>
+<div class="full"><label>소속 위탁사</label><div id="companyFixed" class="company-fixed">접속 권한 확인 중...</div></div>
 <div class="full"><label>단지명 *</label><input id="apartment"></div>
 <div class="full"><label>변경 구분 *</label><div class="radio-row"><label><input type="radio" name="changeType" value="입사" checked>입사</label><label><input type="radio" name="changeType" value="퇴사">퇴사</label></div><div id="exitNotice" class="exit-notice exit-only"><b>퇴사 접수는 동의서 작성과 전자서명이 필요하지 않습니다.</b><br>단지명, 성명, 퇴사일만 입력하면 접수됩니다.</div></div>
 <div class="hire"><label>실제 직책 *</label><input id="position"></div>
@@ -63,13 +75,57 @@ main.exit-mode .actions{grid-template-columns:1fr}
 <div class="preview-shell"><div id="pageViewport"><img id="baseSvg"><img id="lineRepair"></div></div></section>
 </main>
 <script>
-const CONFIG=[{"slug":"thezone","name":"더존환경(주)","svg":"svgs/thezone.svg","w":595.0,"h":841.0,"fields":{"apartment":[193.02,132.54000000000002,291.88,174.08],"position":[374.48,132.54000000000002,502.73,174.08],"name":[193.02,184.08,291.88,225.75],"birth":[374.48,184.08,502.73,225.75]},"periodBox":[306.88,264.6,410.45,337.02],"feeBox":[426.45,264.6,501.73,337.02],"periodMode":"standard","signedDateBox":[240.4781951904297,526.3934936523438,357.3027648925781,543.4247436523438],"applicantBox":[400.36273193359375,595.7572021484375,444.36273193359375,614.7884521484375],"signatureBox":[449.36273193359375,584.7572021484375,477.9189147949219,627.7884521484375],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[465.9189147949219,591.7572021484375,515.6661987304688,618.7884521484375],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/thezone.svg","signatureScale":4},{"slug":"modu","name":"모두관리","svg":"svgs/modu.svg","w":595.0,"h":841.0,"fields":{"apartment":[184.74,151.0,268.73,191.22],"position":[360.81,151.0,498.77,191.22],"name":[184.74,201.22,268.73,241.57],"birth":[360.81,201.22,498.77,241.57]},"periodBox":[283.73,280.54,395.46,377.78],"feeBox":[411.46,280.54,497.77,377.78],"periodMode":"standard","signedDateBox":[359.69854736328125,578.5000610351562,503.6295471191406,596.4906005859375],"applicantBox":[362.7015380859375,603.5118408203125,406.7015380859375,623.5023803710938],"signatureBox":[411.7015380859375,592.5118408203125,472.64154052734375,636.5023803710938],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[460.64154052734375,599.5118408203125,516.6295471191406,627.5023803710938],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/modu.svg","signatureScale":2},{"slug":"mirae_tms","name":"미래티엠에스","svg":"svgs/mirae_tms.svg","w":595.0,"h":841.0,"fields":{"apartment":[186.18,152.32,270.17,192.66],"position":[362.25,152.32,500.21,192.66],"name":[186.18,202.66,270.17,243.01],"birth":[362.25,202.66,500.21,243.01]},"periodBox":[285.17,281.86,396.9,379.22],"feeBox":[412.9,281.86,499.21,379.22],"periodMode":"standard","signedDateBox":[355.1408386230469,579.9384765625,505.0688171386719,597.9290161132812],"applicantBox":[364.14080810546875,604.8303833007812,408.14080810546875,624.8209228515625],"signatureBox":[413.14080810546875,593.8303833007812,474.0808410644531,637.8209228515625],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[462.0808410644531,600.8303833007812,518.06884765625,628.8209228515625],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/mirae_tms.svg","signatureScale":2},{"slug":"seorim_housing","name":"서림주택관리","svg":"svgs/seorim_housing.svg","w":595.0,"h":841.0,"fields":{"apartment":[184.74,151.0,268.73,191.22],"position":[360.81,151.0,498.77,191.22],"name":[184.74,201.22,268.73,241.57],"birth":[360.81,201.22,498.77,241.57]},"periodBox":[283.73,280.54,395.46,377.78],"feeBox":[411.46,280.54,497.77,377.78],"periodMode":"standard","signedDateBox":[359.69854736328125,578.5000610351562,503.6295471191406,596.4906005859375],"applicantBox":[362.7015380859375,603.5118408203125,406.7015380859375,623.5023803710938],"signatureBox":[411.7015380859375,592.5118408203125,472.64154052734375,636.5023803710938],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[460.64154052734375,599.5118408203125,516.6295471191406,627.5023803710938],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/seorim_housing.svg","signatureScale":2},{"slug":"seorim_polytech","name":"서림폴리텍","svg":"svgs/seorim_polytech.svg","w":595.0,"h":841.0,"fields":{"apartment":[184.74,151.0,268.73,191.22],"position":[360.81,151.0,498.77,191.22],"name":[184.74,201.22,268.73,241.57],"birth":[360.81,201.22,498.77,241.57]},"periodBox":[283.73,280.54,395.46,377.78],"feeBox":[411.46,280.54,497.77,377.78],"periodMode":"standard","signedDateBox":[359.69854736328125,578.5000610351562,503.6295471191406,596.4906005859375],"applicantBox":[362.7015380859375,603.5118408203125,406.7015380859375,623.5023803710938],"signatureBox":[411.7015380859375,592.5118408203125,472.64154052734375,636.5023803710938],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[460.64154052734375,599.5118408203125,516.6295471191406,627.5023803710938],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/seorim_polytech.svg","signatureScale":2},{"slug":"seoil","name":"서일개발","svg":"svgs/seoil.svg","w":595.0,"h":841.0,"fields":{"apartment":[184.74,151.0,268.73,191.22],"position":[360.81,151.0,498.77,191.22],"name":[184.74,201.22,268.73,241.57],"birth":[360.81,201.22,498.77,241.57]},"periodBox":[283.73,280.54,395.46,377.78],"feeBox":[411.46,280.54,497.77,377.78],"periodMode":"standard","signedDateBox":[359.69854736328125,578.5000610351562,503.6295471191406,596.4906005859375],"applicantBox":[362.7015380859375,603.5118408203125,406.7015380859375,623.5023803710938],"signatureBox":[411.7015380859375,592.5118408203125,472.64154052734375,636.5023803710938],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[460.64154052734375,599.5118408203125,516.6295471191406,627.5023803710938],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/seoil.svg","signatureScale":2},{"slug":"shinsung_tm","name":"신성티엠","svg":"svgs/shinsung_tm.svg","w":595.0,"h":841.0,"fields":{"apartment":[186.18,152.32,270.17,192.66],"position":[362.25,152.32,500.21,192.66],"name":[186.18,202.66,270.17,243.01],"birth":[362.25,202.66,500.21,243.01]},"periodBox":[285.17,281.86,396.9,379.22],"feeBox":[412.9,281.86,499.21,379.22],"periodMode":"standard","signedDateBox":[355.1408386230469,579.9384765625,505.0688171386719,597.9290161132812],"applicantBox":[364.14080810546875,604.8303833007812,408.14080810546875,624.8209228515625],"signatureBox":[413.14080810546875,593.8303833007812,474.0808410644531,637.8209228515625],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[462.0808410644531,600.8303833007812,518.06884765625,628.8209228515625],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/shinsung_tm.svg","signatureScale":2},{"slug":"shinhan_young","name":"신한영관리","svg":"svgs/shinhan_young.svg","w":595.0,"h":841.0,"fields":{"apartment":[184.74,151.0,268.73,191.22],"position":[360.81,151.0,498.77,191.22],"name":[184.74,201.22,268.73,241.57],"birth":[360.81,201.22,498.77,241.57]},"periodBox":[283.73,280.54,395.46,377.78],"feeBox":[411.46,280.54,497.77,377.78],"periodMode":"standard","signedDateBox":[359.69854736328125,578.5000610351562,503.6295471191406,596.4906005859375],"applicantBox":[362.7015380859375,603.5118408203125,406.7015380859375,623.5023803710938],"signatureBox":[411.7015380859375,592.5118408203125,472.64154052734375,636.5023803710938],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[460.64154052734375,599.5118408203125,516.6295471191406,627.5023803710938],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/shinhan_young.svg","signatureScale":2},{"slug":"ssangyong","name":"쌍용개발","svg":"svgs/ssangyong.svg","w":595.0,"h":841.0,"fields":{"apartment":[184.74,151.0,268.73,191.22],"position":[360.81,151.0,498.77,191.22],"name":[184.74,201.22,268.73,241.57],"birth":[360.81,201.22,498.77,241.57]},"periodBox":[283.73,280.54,395.46,377.78],"feeBox":[411.46,280.54,497.77,377.78],"periodMode":"standard","signedDateBox":[359.69854736328125,578.5000610351562,503.6295471191406,596.4906005859375],"applicantBox":[362.7015380859375,603.5118408203125,406.7015380859375,623.5023803710938],"signatureBox":[411.7015380859375,592.5118408203125,472.64154052734375,636.5023803710938],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[460.64154052734375,599.5118408203125,516.6295471191406,627.5023803710938],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/ssangyong.svg","signatureScale":2},{"slug":"csk","name":"씨에스케이","svg":"svgs/csk.svg","w":595.0,"h":841.0,"fields":{"apartment":[186.18,152.32,270.17,192.66],"position":[362.25,152.32,500.21,192.66],"name":[186.18,202.66,270.17,243.01],"birth":[362.25,202.66,500.21,243.01]},"periodBox":[285.17,281.86,396.9,379.22],"feeBox":[412.9,281.86,499.21,379.22],"periodMode":"standard","signedDateBox":[355.1408386230469,579.9384765625,505.0688171386719,597.9290161132812],"applicantBox":[364.14080810546875,604.8303833007812,408.14080810546875,624.8209228515625],"signatureBox":[413.14080810546875,593.8303833007812,474.0808410644531,637.8209228515625],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[462.0808410644531,600.8303833007812,518.06884765625,628.8209228515625],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/csk.svg","signatureScale":2},{"slug":"abm","name":"에이비엠","svg":"svgs/abm.svg","w":595.0,"h":841.0,"fields":{"apartment":[184.74,151.0,268.73,191.22],"position":[360.81,151.0,498.77,191.22],"name":[184.74,201.22,268.73,241.57],"birth":[360.81,201.22,498.77,241.57]},"periodBox":[283.73,280.54,395.46,377.78],"feeBox":[411.46,280.54,497.77,377.78],"periodMode":"standard","signedDateBox":[359.69854736328125,578.5000610351562,503.6295471191406,596.4906005859375],"applicantBox":[362.7015380859375,603.5118408203125,406.7015380859375,623.5023803710938],"signatureBox":[411.7015380859375,592.5118408203125,472.64154052734375,636.5023803710938],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[460.64154052734375,599.5118408203125,516.6295471191406,627.5023803710938],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/abm.svg","signatureScale":2},{"slug":"wihan_cm","name":"위한씨엠","svg":"svgs/wihan_cm.svg","w":595.3200073242188,"h":841.9200439453125,"fields":{"apartment":[178.36,100.16,291.32,132.52],"position":[391.24,100.16,514.52,132.52],"name":[178.36,142.52,291.32,179.2],"birth":[391.24,142.52,514.52,179.2]},"periodBox":[306.5,234.5,407.0,317.0],"feeBox":[423.0,234.5,513.5,317.0],"periodMode":"wihan","signedDateBox":[242.16000366210938,570.0611572265625,353.2024841308594,590.1016845703125],"applicantBox":[331.0,610.0,366.0,639.0],"signatureBox":[368.0,602.0,413.0,644.0],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":2,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[407.0,602.0,447.0,644.0],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/wihan_cm.svg","signatureScale":2},{"slug":"yulsan","name":"율산개발","svg":"svgs/yulsan.svg","w":595.0,"h":841.0,"fields":{"apartment":[186.18,152.32,270.17,192.66],"position":[362.25,152.32,500.21,192.66],"name":[186.18,202.66,270.17,243.01],"birth":[362.25,202.66,500.21,243.01]},"periodBox":[285.17,281.86,396.9,379.22],"feeBox":[412.9,281.86,499.21,379.22],"periodMode":"standard","signedDateBox":[355.1408386230469,579.93896484375,505.0688171386719,597.9295043945312],"applicantBox":[364.14080810546875,604.8308715820312,408.14080810546875,624.8214111328125],"signatureBox":[413.14080810546875,593.8308715820312,474.0808410644531,637.8214111328125],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[462.0808410644531,600.8308715820312,518.06884765625,628.8214111328125],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/yulsan.svg","signatureScale":2},{"slug":"taeryong_sd","name":"태룡에스디","svg":"svgs/taeryong_sd.svg","w":595.0,"h":841.0,"fields":{"apartment":[184.74,151.0,268.73,191.22],"position":[360.81,151.0,498.77,191.22],"name":[184.74,201.22,268.73,241.57],"birth":[360.81,201.22,498.77,241.57]},"periodBox":[283.73,280.54,395.46,377.78],"feeBox":[411.46,280.54,497.77,377.78],"periodMode":"standard","signedDateBox":[359.69854736328125,578.5000610351562,503.6295471191406,596.4906005859375],"applicantBox":[362.7015380859375,603.5118408203125,406.7015380859375,623.5023803710938],"signatureBox":[411.7015380859375,592.5118408203125,472.64154052734375,636.5023803710938],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[460.64154052734375,599.5118408203125,516.6295471191406,627.5023803710938],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/taeryong_sd.svg","signatureScale":2},{"slug":"hanyoung_fh","name":"한영파트너스에프에이치","svg":"svgs/hanyoung_fh.svg","w":595.0,"h":841.0,"fields":{"apartment":[184.74,151.0,268.73,191.22],"position":[360.81,151.0,498.77,191.22],"name":[184.74,201.22,268.73,241.57],"birth":[360.81,201.22,498.77,241.57]},"periodBox":[283.73,280.54,395.46,377.78],"feeBox":[411.46,280.54,497.77,377.78],"periodMode":"standard","signedDateBox":[359.69854736328125,578.5000610351562,503.6295471191406,596.4906005859375],"applicantBox":[362.7015380859375,603.5118408203125,406.7015380859375,623.5023803710938],"signatureBox":[411.7015380859375,592.5118408203125,472.64154052734375,636.5023803710938],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[460.64154052734375,599.5118408203125,516.6295471191406,627.5023803710938],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/hanyoung_fh.svg","signatureScale":2},{"slug":"hyundai","name":"현대하우징","svg":"svgs/hyundai.svg","w":595.0,"h":841.0,"fields":{"apartment":[186.18,152.32,270.17,192.66],"position":[362.25,152.32,500.21,192.66],"name":[186.18,202.66,270.17,243.01],"birth":[362.25,202.66,500.21,243.01]},"periodBox":[285.17,281.86,396.9,379.22],"feeBox":[412.9,281.86,499.21,379.22],"periodMode":"standard","signedDateBox":[355.1408386230469,579.9384765625,505.0688171386719,597.9290161132812],"applicantBox":[364.14080810546875,604.8303833007812,408.14080810546875,624.8209228515625],"signatureBox":[413.14080810546875,593.8303833007812,474.0808410644531,637.8209228515625],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[462.0808410644531,600.8303833007812,518.06884765625,628.8209228515625],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/hyundai.svg","signatureScale":2},{"slug":"jinheung","name":"(주)진흥관리","svg":"svgs/jinheung.svg","w":595.0,"h":841.0,"fields":{"apartment":[220.01,78.6,335.06,126.74000000000001],"position":[452.68,78.6,559.58,126.74000000000001],"name":[220.01,136.74,335.06,190.15],"birth":[452.68,136.74,559.58,190.15]},"periodBox":[221.0,260.0,558.6,304.2],"feeBox":[221.0,318.2,558.6,362.1],"periodMode":"jinheung_clean_inline","signedDateBox":[419.531005859375,597.0026245117188,560.5778198242188,617.0311279296875],"applicantBox":[405.98321533203125,616.5001831054688,449.98321533203125,638.5286865234375],"signatureBox":[454.98321533203125,605.5001831054688,507.882568359375,651.5286865234375],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[495.882568359375,612.5001831054688,552.3342895507812,642.5286865234375],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/jinheung.svg","signatureScale":2},{"slug":"daewon","name":"대원에스테이트","svg":"svgs/daewon.svg","w":595.0,"h":841.0,"fields":{"apartment":[186.18,152.32,270.17,192.66],"position":[362.25,152.32,500.21,192.66],"name":[186.18,202.66,270.17,243.01],"birth":[362.25,202.66,500.21,243.01]},"periodBox":[285.17,281.86,396.9,379.22],"feeBox":[412.9,281.86,499.21,379.22],"periodMode":"standard","signedDateBox":[361.1378479003906,579.9384765625,505.0688171386719,597.9290161132812],"applicantBox":[364.14080810546875,604.8303833007812,408.14080810546875,624.8209228515625],"signatureBox":[413.14080810546875,593.8303833007812,474.0808410644531,637.8209228515625],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[462.0808410644531,600.8303833007812,518.06884765625,628.8209228515625],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/daewon.svg","signatureScale":2},{"slug":"daehan_industry","name":"대한산업개발","svg":"svgs/daehan_industry.svg","w":595.0,"h":841.0,"fields":{"apartment":[193.02,132.54000000000002,291.88,174.08],"position":[374.48,132.54000000000002,502.73,174.08],"name":[193.02,184.08,291.88,225.75],"birth":[374.48,184.08,502.73,225.75]},"periodBox":[306.88,264.6,410.45,337.02],"feeBox":[426.45,264.6,501.73,337.02],"periodMode":"standard","signedDateBox":[240.4781951904297,526.3934936523438,357.3027648925781,543.4247436523438],"applicantBox":[400.36273193359375,595.7572021484375,444.36273193359375,614.7884521484375],"signatureBox":[449.36273193359375,584.7572021484375,477.9189147949219,627.7884521484375],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[465.9189147949219,591.7572021484375,515.6661987304688,618.7884521484375],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/daehan_industry.svg","signatureScale":4},{"slug":"daehan_total","name":"대한종합개발","svg":"svgs/daehan_total.svg","w":595.0,"h":841.0,"fields":{"apartment":[136.77,108.21,291.76,127.82],"name":[390.31,108.21,545.3,127.82],"changeDate":[136.77,137.82,291.76,157.42],"birth":[390.31,137.82,545.3,157.42],"phone":[136.77,167.42,291.76,187.03],"position":[390.31,167.42,545.3,187.03],"address":[136.77,197.03,545.3,216.76]},"periodBox":[228.94653,301.68494,344.57426,313.763214],"feeBox":[136.77,387.14,545.3,411.3],"periodMode":"daehan_total_date_marker","signedDateBox":null,"applicantBox":[379.83740234375,678.2578125,443.83740234375,696.2096557617188],"signatureBox":[448.83740234375,667.2578125,523.83740234375,709.2096557617188],"fontSize":9,"smallFontSize":9,"feeFontSize":9,"signatureInset":4,"signedDateFontSize":9,"applicantFontSize":9,"sealBox":[506.19696044921875,674.2578125,563.08349609375,700.2096557617188],"sealFontSize":9,"sealShiftInward":10.0,"lineRepair":"lines/daehan_total.svg","signatureScale":2}];
-const $=id=>document.getElementById(id), company=$('company'), viewport=$('pageViewport'), baseSvg=$('baseSvg'), lineRepair=$('lineRepair');
-CONFIG.forEach(c=>{const o=document.createElement('option');o.value=c.slug;o.textContent=c.name;company.appendChild(o)});company.value='hyundai';
-let signatureData='';
-let exportMode=false;
-let currentScale=1;
-function cfg(){return CONFIG.find(c=>c.slug===company.value)||CONFIG[0]}
+let ACTIVE_CONFIG=null;
+let ACTIVE_ACCESS_KEY='';
+let ACTIVE_ASSETS={svg:'',line:''};
+const $=id=>document.getElementById(id);
+const viewport=$('pageViewport'),baseSvg=$('baseSvg'),lineRepair=$('lineRepair');
+let currentScale=1,exportMode=false,signatureData='';
+
+function cfg(){
+ if(!ACTIVE_CONFIG) throw new Error('인증된 위탁사 설정이 없습니다.');
+ return ACTIVE_CONFIG;
+}
+function getAccessKey(){
+ return new URLSearchParams(location.search).get('key')||'';
+}
+function showAccessError(message){
+ $('accessTitle').textContent='접속할 수 없습니다';
+ $('accessMessage').textContent=message;
+ $('accessLock').classList.remove('hidden');
+}
+async function authenticateAccess(){
+ const key=getAccessKey();
+ if(!key){
+   showAccessError('위탁사 전용 링크로 접속해 주세요. 문의: 02-6481-0332');
+   return false;
+ }
+ const url=(window.INS_AUTH_WEBHOOK_URL||'').trim();
+ if(!url){
+   showAccessError('관리자 인증 연결이 아직 설정되지 않았습니다.');
+   return false;
+ }
+ try{
+   const body=new FormData();
+   body.append('action','authorize');
+   body.append('access_key',key);
+   const res=await fetch(url,{method:'POST',body});
+   if(!res.ok) throw new Error('HTTP '+res.status);
+   const data=await res.json();
+   if(!data.ok||!data.config) throw new Error(data.message||'유효하지 않은 링크입니다.');
+   ACTIVE_ACCESS_KEY=key;
+   ACTIVE_CONFIG=typeof data.config==='string'?JSON.parse(data.config):data.config;
+   ACTIVE_ASSETS.svg=data.svg_data_url||data.svg||'';
+   ACTIVE_ASSETS.line=data.line_data_url||data.line||'';
+   $('companyFixed').textContent=ACTIVE_CONFIG.name||data.company||'';
+   $('accessLock').classList.add('hidden');
+   return true;
+ }catch(err){
+   console.error(err);
+   showAccessError('유효하지 않거나 만료된 전용 링크입니다. 문의: 02-6481-0332');
+   return false;
+ }
+}
 function isHire(){return document.querySelector('input[name=changeType]:checked').value==='입사'}
 function uiSize(size){const base=Number(size||13);return exportMode?base:(base/Math.max(currentScale,0.01))}
 function uiMin(size){const base=Number(size||7);return exportMode?base:(base/Math.max(currentScale,0.01))}
@@ -98,9 +154,17 @@ function render(updateScale=true){
 }
 
 function resize(shouldRender=true){const shell=document.querySelector('.preview-shell'),c=cfg(),maxW=shell.clientWidth-20,maxH=shell.clientHeight-20,s=Math.min(maxW/c.w,maxH/c.h);currentScale=s||1;viewport.style.width=c.w+'px';viewport.style.height=c.h+'px';viewport.style.transform=`scale(${s})`;if(shouldRender) render(false)}
-function load(){const c=cfg();baseSvg.src=c.svg+'?v=1.20';lineRepair.src=(c.lineRepair||'')+'?v=1.20';viewport.style.width=c.w+'px';viewport.style.height=c.h+'px';$('status').textContent=c.name+' 양식';toggleSpecial();render()}
+function load(){
+ const c=cfg();
+ baseSvg.src=ACTIVE_ASSETS.svg||'';
+ lineRepair.src=ACTIVE_ASSETS.line||'';
+ viewport.style.width=c.w+'px';
+ viewport.style.height=c.h+'px';
+ $('status').textContent=c.name+' 양식';
+ toggleSpecial();render();
+}
 window.addEventListener('resize',()=>resize(true));
-['apartment','position','name','birth','changeDate','tier','phone','address'].forEach(id=>$(id).addEventListener(id==='tier'?'change':'input',render));company.addEventListener('change',load);
+['apartment','position','name','birth','changeDate','tier','phone','address'].forEach(id=>$(id).addEventListener(id==='tier'?'change':'input',render));
 function applyChangeMode(){
  const hire=isHire();
  document.querySelectorAll('.hire').forEach(e=>e.classList.toggle('hidden',!hire));
@@ -120,7 +184,7 @@ function applyChangeMode(){
 }
 document.querySelectorAll('input[name=changeType]').forEach(r=>r.addEventListener('change',applyChangeMode));
 function toggleSpecial(){
- const yes=company.value==='daehan_total' && isHire();
+ const yes=cfg().slug==='daehan_total' && isHire();
  $('phoneWrap').classList.toggle('hidden',!yes);
  $('addressWrap').classList.toggle('hidden',!yes);
 }
@@ -143,7 +207,7 @@ function validateRequired(){
  const hire=isHire();
  const required=[['apartment','단지명'],['name','성명'],['changeDate','직원변경일']];
  if(hire){required.push(['position','실제 직책'],['tier','보험료 직급'],['birth','생년월일'])}
- if(hire&&company.value==='daehan_total'){required.push(['phone','전화번호'],['address','주소'])}
+ if(hire&&cfg().slug==='daehan_total'){required.push(['phone','전화번호'],['address','주소'])}
  for(const [id,label] of required){if(!val(id)){alert(label+'을(를) 입력해 주세요.');$(id)?.focus();return false}}
  if(hire&&!signatureData){alert('전자서명을 해 주세요.');return false}
  return true;
@@ -193,8 +257,9 @@ $('submitBtn').onclick=async()=>{
      form.append('has_pdf','false');
    }
 
+   form.append('access_key',ACTIVE_ACCESS_KEY);
    form.append('company',cfg().name);
-   form.append('company_slug',company.value);
+   form.append('company_slug',cfg().slug);
    form.append('apartment',val('apartment'));
    form.append('change_type',hire?'입사':'퇴사');
    form.append('position',hire?val('position'):'');
@@ -224,6 +289,10 @@ $('submitBtn').onclick=async()=>{
    btn.disabled=false;btn.textContent='접수완료';
  }
 };
-$('changeDate').value=new Date().toISOString().slice(0,10);load();applyChangeMode();
+$('changeDate').value=new Date().toISOString().slice(0,10);
+(async()=>{
+ const ok=await authenticateAccess();
+ if(ok){load();applyChangeMode();}
+})();
 </script>
 </body></html>

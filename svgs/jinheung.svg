@@ -6417,4 +6417,15 @@
      d="M 35.980469 767.402344 L 567.296875 767.402344 "
      transform="matrix(1, 0, 0, -1, 0, 841)"
      id="path867" />
+
+  <!-- v1.06: clear leftover original text inside Jinheung period value cell -->
+  <rect
+     id="jinheung-period-cleanup"
+     x="222.2"
+     y="261.2"
+     width="335.2"
+     height="41.8"
+     fill="#ffffff"
+     stroke="none" />
+
 </svg>

@@ -1570,10 +1570,10 @@
       ]
     },
     "periodBox": [
-      210.0,
-      266.0,
-      345.0,
-      283.0
+      228.94653,
+      301.68494,
+      344.57426,
+      313.763214
     ],
     "feeBox": [
       136.77,
@@ -1581,7 +1581,7 @@
       545.3,
       411.3
     ],
-    "periodMode": "daehan_total_date_only",
+    "periodMode": "daehan_total_date_marker",
     "signedDateBox": null,
     "applicantBox": [
       379.83740234375,

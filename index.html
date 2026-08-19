@@ -280,6 +280,11 @@ $('submitBtn').onclick=async()=>{
      : '퇴사 접수 완료 · 담당 직원 확인 후 처리됩니다.';
    status.className='submit-status ok';
    alert(hire?'입사 접수가 완료되었습니다.':'퇴사 접수가 완료되었습니다.');
+
+   // 접수 성공 후 입력내용 자동 초기화
+   $('resetBtn').click();
+   status.textContent='접수가 완료되었습니다. 새 접수를 입력해 주세요.';
+   status.className='submit-status ok';
  }catch(err){
    console.error(err);
    status.textContent='접수 실패 · 관리자 전송 중 오류가 발생했습니다.';

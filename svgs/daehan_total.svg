@@ -8031,4 +8031,15 @@
      d="M 44.855469 59.695312 L 552.902344 59.695312 "
      transform="matrix(1, 0, 0, -1, 0, 841)"
      id="path910" />
+
+  <!-- v1.15: 대한종합개발 기간 2줄 영역 정리 -->
+  <rect
+     id="daehan-total-period-cleanup-v115"
+     x="137"
+     y="302"
+     width="205"
+     height="31"
+     fill="#ffffff"
+     stroke="none" />
+
 </svg>

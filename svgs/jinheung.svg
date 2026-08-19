@@ -6438,4 +6438,13 @@
      fill="#ffffff"
      stroke="none" />
 
+
+  <!-- v1.14: 진흥관리 취업규칙 제5조 제2항 보정 -->
+  <text x="293.60088" y="397.725342"
+        font-family="Malgun Gothic, Noto Sans KR, sans-serif"
+        font-size="12" font-weight="600" fill="#000000">5</text>
+  <text x="341.57488" y="397.725342"
+        font-family="Malgun Gothic, Noto Sans KR, sans-serif"
+        font-size="12" font-weight="600" fill="#000000">2</text>
+
 </svg>

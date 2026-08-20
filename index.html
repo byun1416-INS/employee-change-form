@@ -56,7 +56,7 @@ box-shadow:0 12px 40px rgba(16,36,62,.12);text-align:center}
 <section class="panel"><h2 class="section-title">직원변경 정보</h2><div class="grid">
 <div class="full"><label>소속 위탁사</label><div id="companyFixed" class="company-fixed">접속 권한 확인 중...</div></div>
 <div class="full"><label>단지명 *</label><input id="apartment"></div>
-<div class="full"><label>변경 구분 *</label><div class="radio-row"><label><input type="radio" name="changeType" value="입사" checked>입사</label><label><input type="radio" name="changeType" value="퇴사">퇴사</label></div><div id="exitNotice" class="exit-notice exit-only"><b>퇴사 접수는 동의서 작성과 전자서명이 필요하지 않습니다.</b><br>단지명, 성명, 퇴사일만 입력하면 접수됩니다.</div></div>
+<div class="full"><label>변경 구분 *</label><div class="radio-row"><label><input type="radio" name="changeType" value="입사" checked>입사</label><label><input type="radio" name="changeType" value="퇴사">퇴사</label><label><input type="radio" name="changeType" value="승진">승진</label></div><div id="exitNotice" class="exit-notice exit-only"><b>퇴사 접수는 동의서 작성과 전자서명이 필요하지 않습니다.</b><br>단지명, 성명, 퇴사일만 입력하면 접수됩니다.</div></div>
 <div class="hire"><label>실제 직책 *</label><input id="position"></div>
 <div class="hire"><label>보험료 직급 *</label><select id="tier"><option value="">선택해 주세요</option><option value="12000">관리소장급 (12,000원)</option><option value="9000">회계과장급 (9,000원)</option><option value="4000">기술직급 (4,000원)</option></select></div>
 <div><label>성명 *</label><input id="name"></div><div class="hire"><label>생년월일 *</label><input id="birth" type="date"></div>
@@ -126,7 +126,8 @@ async function authenticateAccess(){
    return false;
  }
 }
-function isHire(){return document.querySelector('input[name=changeType]:checked').value==='입사'}
+function getChangeType(){return document.querySelector('input[name=changeType]:checked').value}
+function isHire(){const t=getChangeType();return t==='입사'||t==='승진'}
 function uiSize(size){const base=Number(size||13);return exportMode?base:(base/Math.max(currentScale,0.01))}
 function uiMin(size){const base=Number(size||7);return exportMode?base:(base/Math.max(currentScale,0.01))}
 function fmtDate(v){if(!v)return '';const [y,m,d]=v.split('-');return `${y}년 ${Number(m)}월 ${Number(d)}일`}
@@ -261,7 +262,7 @@ $('submitBtn').onclick=async()=>{
    form.append('company',cfg().name);
    form.append('company_slug',cfg().slug);
    form.append('apartment',val('apartment'));
-   form.append('change_type',hire?'입사':'퇴사');
+   form.append('change_type',getChangeType());
    form.append('position',hire?val('position'):'');
    form.append('tier',hire?val('tier'):'');
    form.append('fee',hire?fee():'');
@@ -279,7 +280,7 @@ $('submitBtn').onclick=async()=>{
      ? '접수 완료 · 동의서 PDF 관리자 전송 완료'
      : '퇴사 접수 완료 · 담당 직원 확인 후 처리됩니다.';
    status.className='submit-status ok';
-   alert(hire?'입사 접수가 완료되었습니다.':'퇴사 접수가 완료되었습니다.');
+   alert(getChangeType()+' 접수가 완료되었습니다.');
 
    // 접수 성공 후 입력내용 자동 초기화
    $('resetBtn').click();

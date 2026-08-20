@@ -63,7 +63,7 @@ box-shadow:0 12px 40px rgba(16,36,62,.12);text-align:center}
 <div><label>직원변경일 *</label><input id="changeDate" type="date"></div>
 <div id="phoneWrap" class="hidden"><label>전화번호 *</label><input id="phone"></div>
 <div id="addressWrap" class="full hidden"><label>주소 *</label><input id="address"></div>
-<div class="full hire"><div class="fee-help"><b>보험료 직급 안내</b><br>관리소장 12,000원 / 경리·서무주임·전기선임·관리과장·관리팀장·관리부장 등 9,000원 / 기계·소방선임 및 그 외 가입대상 4,000원<br><b>경비·미화·커뮤니티 업무 종사자는 가입대상이 아닙니다.</b><br><br><b>※ 입·퇴사가 이루어지는 경우 입사/퇴사 모두 작성해 주셔야합니다.</b></div></div>
+<div class="full hire"><div class="fee-help"><b>보험료 직급 안내</b><br>관리소장 12,000원 / 경리·서무주임·전기선임·관리과장·관리팀장·관리부장 등 9,000원 / 기계·소방선임 및 그 외 가입대상 4,000원<br><b>경비·미화·커뮤니티 업무 종사자는 가입대상이 아닙니다.</b><br><br><b>※ 입·퇴사가 동시에 이루어지는 경우 입사/퇴사 모두 작성해 주셔야 합니다.</b></div></div>
 </div>
 <div class="hire"><h2 class="section-title" style="margin-top:20px">전자서명</h2>
 <div class="notice">서명 이미지는 각 회사 양식의 <b>(인) 영역을 기준으로 자동 배치</b>됩니다.</div>
@@ -80,7 +80,7 @@ let ACTIVE_ACCESS_KEY='';
 let ACTIVE_ASSETS={svg:'',line:''};
 const $=id=>document.getElementById(id);
 const viewport=$('pageViewport'),baseSvg=$('baseSvg'),lineRepair=$('lineRepair');
-let currentScale=1,exportMode=false,signatureData='';
+let currentScale=1,exportMode=false,signatureData='',hasSignature=false;
 
 function cfg(){
  if(!ACTIVE_CONFIG) throw new Error('인증된 위탁사 설정이 없습니다.');
@@ -174,7 +174,7 @@ function applyChangeMode(){
  toggleSpecial();
  if(!hire){
    ctx.clearRect(0,0,canvas.width,canvas.height);
-   signatureData='';
+   signatureData='';hasSignature=false;
    $('submitStatus').textContent='';
    $('submitStatus').className='submit-status';
  }else{
@@ -190,14 +190,14 @@ function toggleSpecial(){
 }
 const canvas=$('signature'),ctx=canvas.getContext('2d');ctx.lineWidth=4.0;ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#000000';ctx.globalAlpha=1;let drawing=false,last=null;
 function pt(e){const r=canvas.getBoundingClientRect(),t=e.touches?e.touches[0]:e;return{x:(t.clientX-r.left)*canvas.width/r.width,y:(t.clientY-r.top)*canvas.height/r.height}}
-function start(e){drawing=true;last=pt(e);e.preventDefault()}function move(e){if(!drawing)return;const p=pt(e);ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p;signatureData=canvas.toDataURL('image/png');render();e.preventDefault()}function end(){drawing=false;signatureData=canvas.toDataURL('image/png');render()}
+function start(e){drawing=true;last=pt(e);e.preventDefault()}function move(e){if(!drawing)return;const p=pt(e);ctx.beginPath();ctx.moveTo(last.x,last.y);ctx.lineTo(p.x,p.y);ctx.stroke();last=p;hasSignature=true;signatureData=canvas.toDataURL('image/png');render();e.preventDefault()}function end(){drawing=false;if(hasSignature){signatureData=canvas.toDataURL('image/png');render()}}
 canvas.addEventListener('mousedown',start);canvas.addEventListener('mousemove',move);window.addEventListener('mouseup',end);canvas.addEventListener('touchstart',start,{passive:false});canvas.addEventListener('touchmove',move,{passive:false});canvas.addEventListener('touchend',end);
-$('clearSig').onclick=()=>{ctx.clearRect(0,0,canvas.width,canvas.height);signatureData='';render()};
+$('clearSig').onclick=()=>{ctx.clearRect(0,0,canvas.width,canvas.height);signatureData='';hasSignature=false;render()};
 $('resetBtn').onclick=()=>{
  ['apartment','position','name','birth','phone','address'].forEach(id=>$(id).value='');
  $('tier').value='';
  $('changeDate').value=new Date().toISOString().slice(0,10);
- ctx.clearRect(0,0,canvas.width,canvas.height);signatureData='';
+ ctx.clearRect(0,0,canvas.width,canvas.height);signatureData='';hasSignature=false;
  document.querySelector('input[name=changeType][value="입사"]').checked=true;
  applyChangeMode();
  load();
@@ -209,7 +209,7 @@ function validateRequired(){
  if(hire){required.push(['position','실제 직책'],['tier','보험료 직급'],['birth','생년월일'])}
  if(hire&&cfg().slug==='daehan_total'){required.push(['phone','전화번호'],['address','주소'])}
  for(const [id,label] of required){if(!val(id)){alert(label+'을(를) 입력해 주세요.');$(id)?.focus();return false}}
- if(hire&&!signatureData){alert('전자서명을 해 주세요.');return false}
+ if(hire&&!hasSignature){alert('전자서명을 해 주세요. 서명 후 접수완료를 눌러 주세요.');canvas.scrollIntoView({behavior:'smooth',block:'center'});return false}
  return true;
 }
 async function buildPdf(){

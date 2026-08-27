@@ -259,7 +259,7 @@ $('submitBtn').onclick=async()=>{
    }
 
    form.append('access_key',ACTIVE_ACCESS_KEY);
-   form.append('company',cfg().name);
+   form.append('company',(cfg().name||'').replace(/^\(주\)\s*/,''));
    form.append('company_slug',cfg().slug);
    form.append('apartment',val('apartment'));
    form.append('change_type',getChangeType());
